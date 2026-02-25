@@ -1,2 +1,4 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: "../auth-service/.env"});
 
-console.log('ola mundo')
+console.log(process.env.DATABASE_URL)
