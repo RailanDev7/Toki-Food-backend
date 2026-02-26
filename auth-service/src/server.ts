@@ -1,4 +1,6 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: "../auth-service/.env"});
+import app from "./index.js";
 
-console.log(process.env.DATABASE_URL)
+
+
+
+app.listen(3001, () => console.log('Server running'))

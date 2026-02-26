@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./auth-service/container.env
+    depends_on:
+      - auth-db
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+
+    networks:
+      - app-network
+    
+
+  auth-db:
+    image: mysql:8.0
+    container_name: auth-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: auth_service
+      MYSQL_USER: authuser
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    volumes:
+      - auth-mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  auth-mysql-data:
+
+networks:
+  app-network:

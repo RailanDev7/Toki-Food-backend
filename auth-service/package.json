@@ -4,21 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "CHOKIDAR_USEPOLLING=1 tsx watch src/server.ts"
   },
   "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.3.0",
     "prisma": "^5.22.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.4.1",
     "@prisma/client": "^5.22.0",
-    "dotenv": "^17.3.1"
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
   }
 }
