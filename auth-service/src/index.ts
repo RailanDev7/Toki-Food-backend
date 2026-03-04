@@ -1,5 +1,5 @@
 import express from 'express';
-import prisma from './utils/prisma.Client.js';
+
 
 
 
@@ -8,12 +8,7 @@ app.use(express.json())
 
 
 app.get("/", async(req, res) => {
-    try {
-     const dados = await prisma.teste.findMany();
-        return res.json(dados)
-    } catch (error) {
-        console.log(error)
-    }
+   return res.json({ message: "teste"})
     
 })
 
