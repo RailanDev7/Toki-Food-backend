@@ -5,12 +5,71 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}
 
+}
+//user
 model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
   password String
   createdAt DateTime @default(now())
+  profile Profile[]
+  usercpf UserCPF[]
+  addresses Addresses[]
+  email_code Email_code[]
+}
+//infos users
+model UserCPF {
+  id        Int      @id @default(autoincrement())
+  cpf String
+  data_nasci String
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+}
+enum Gender {
+  sem_preferencia
+  femenino
+  masculino
+}
+//profile
+model Profile {
+  id    Int  @id @default(autoincrement())
+  photo String?
+  user_id Int
+  bio String
+  genero Gender @default(sem_preferencia)
+  user User @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Addresses {
+  id    Int  @id @default(autoincrement())
+  cep String
+  rua String
+  numero String
+  bairro String
+  cidade String
+  estado String
+  complemento String?
+  latitude String
+  longitude String
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+}
+
+enum Verification {
+  verificado
+  nao_verificado
+}
+model Email_code {
+  id    Int  @id @default(autoincrement())
+  verification Verification @default(nao_verificado)
+  user_id Int
+  code String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id])
 }

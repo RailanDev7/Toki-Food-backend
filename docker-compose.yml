@@ -12,6 +12,8 @@ services:
       - ./auth-service/container.env
     depends_on:
       - authdb
+      - redis
+      - rabbitmq
     volumes:
       - ./auth-service:/app
       - /app/node_modules
@@ -35,9 +37,45 @@ services:
       - auth-mysql-data:/var/lib/mysql
     networks:
       - app-network
-
+  redis:
+    image: redis:7-alpine
+    container_name: redis-auth
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+  redisinsight: 
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    restart: always
+    ports:
+      - "5540:5540"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+  rabbitmq:
+    image: rabbitmq:4.2.4-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - app-network
 volumes:
   auth-mysql-data:
+  redis_data:
+  rabbitmq_data:
 
 networks:
   app-network:
