@@ -1,28 +1,16 @@
 import express from 'express';
-import {prisma} from './utils/prismaClient.js'
+import router from './routes/authRouter.js';
 
 
 const app = express();
 app.use(express.json())
 
-app.post("/contas", async(req, res) => {
-   try {
-   const { name, email, password } = req.body
-    await prisma.user.create({
-      data: {
-         name: name,
-         email: email,
-         password: password
-      }
-   })
-   return res.json({ message: "conta criada com sucesso"})
-   } catch (error) {
-      console.log("erro ao criar conta", error)
-   }
-})
+//api v1 routers
+app.use("/api/v1", router)
+
 
 app.get("/", (req, res) => {
-   return res.json({ message: "sucesso"})
+   return res.json({ message: "OK" })
 })
 
 
