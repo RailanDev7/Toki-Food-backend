@@ -1,4 +1,6 @@
 import express from 'express';
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from './docs/swagger.js';
 import router from './routes/auth/authRouter.js';
 
 
@@ -11,6 +13,9 @@ app.use(express.json())
 app.get("/", (req, res) => {
    return res.json({ message: "OK" })
 })
+
+//docs swagger
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 //api v1 routers
