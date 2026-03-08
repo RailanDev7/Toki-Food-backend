@@ -1,4 +1,4 @@
-import { RegisterAuth } from "../../service/auth/registerAuth.js";
+import { RegisterAuth } from "../../service/auth/register.service.js";
 import type { Request, Response } from "express";
 
 export async function registerController(req: Request, res: Response) {
@@ -26,7 +26,7 @@ export async function registerController(req: Request, res: Response) {
 
         return res.status(500).json({
             success: false,
-            error: "Erro interno no servidor"
+            error: "Internal server error"
         });
     }
 }

@@ -27,7 +27,7 @@ export async function RegisterAuth(name: string, email: string, password: string
         if (emailExists) {
             return {
                 success: false,
-                error: "Email já cadastrado"
+                error: "Email already registered"
             };
         }
 
@@ -44,16 +44,16 @@ export async function RegisterAuth(name: string, email: string, password: string
 
         return {
             success: true,
-            message: "Conta criada com sucesso"
+            message: "Account created successfully"
         };
 
     } catch (error) {
 
-        console.error("Erro no registro:", error);
+        console.error("Error in registration:", error);
 
         return {
             success: false,
-            error: "Erro interno no servidor"
+            error: "Internal server error"
         };
     }
 }
