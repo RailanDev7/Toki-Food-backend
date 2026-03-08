@@ -44,7 +44,7 @@ export async function RegisterAuth(name: string, email: string, password: string
 
         return {
             success: true,
-            data: user
+            message: "Conta criada com sucesso"
         };
 
     } catch (error) {

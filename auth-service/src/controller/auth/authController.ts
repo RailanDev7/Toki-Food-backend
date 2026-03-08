@@ -17,7 +17,7 @@ export async function registerController(req: Request, res: Response) {
 
         return res.status(201).json({
             success: true,
-            data: result.data
+            data: result
         });
 
     } catch (error) {
