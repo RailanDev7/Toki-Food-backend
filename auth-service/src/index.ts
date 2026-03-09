@@ -1,7 +1,8 @@
 import express from 'express';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from './docs/swagger.js';
-import router from './routes/auth/auth.routes.js';
+import auth from './routes/auth/auth.routes.js';
+import addressRouter from './routes/address/addAnddres.routes.js';
 
 
 const app = express();
@@ -19,9 +20,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 //api v1 routers
-app.use("/api/v1", router)
-
-
+app.use("/api/v1", auth)
+app.use("/api/v1", addressRouter)
 
 export default app
 

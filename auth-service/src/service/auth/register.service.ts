@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { prisma } from "../../utils/prismaClient.js";
-import { validateRegistrationData } from "../../utils/validator/email.js";
+import { validateRegistrationData } from "../../utils/validator/emailValidator/email.js";
 
 export async function RegisterAuth(name: string, email: string, password: string) {
     try {

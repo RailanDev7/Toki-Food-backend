@@ -2,7 +2,7 @@ import { Router } from "express";
 import { registerController } from "../../controller/auth/register.controller.js";
 import { loginController } from "../../controller/auth/login.controller.js";
 
-const router = Router();
+const auth = Router();
 
 /**
  * @swagger
@@ -37,7 +37,7 @@ const router = Router();
  *       400:
  *         description: Dados inválidos
  */
-router.post("/auth/register", registerController);
+auth.post("/auth/register", registerController);
 
 /**
  * @swagger
@@ -68,6 +68,6 @@ router.post("/auth/register", registerController);
  *       401:
  *         description: Credenciais inválidas
  */
-router.post("/auth/login", loginController);
+auth.post("/auth/login", loginController);
 
-export default router;
+export default auth;

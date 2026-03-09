@@ -16,7 +16,7 @@ model User {
   createdAt DateTime @default(now())
   profile Profile[]
   usercpf UserCPF[]
-  addresses Addresses[]
+  address Address[]
   email_code Email_code[]
 }
 //infos users
@@ -44,7 +44,7 @@ model Profile {
   createdAt DateTime @default(now())
 }
 
-model Addresses {
+model Address {
   id    Int  @id @default(autoincrement())
   cep String
   rua String
