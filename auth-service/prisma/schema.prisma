@@ -48,7 +48,7 @@ model Addresses {
   id    Int  @id @default(autoincrement())
   cep String
   rua String
-  numero String
+  numero String?
   bairro String
   cidade String
   estado String
