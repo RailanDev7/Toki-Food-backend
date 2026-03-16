@@ -34,7 +34,7 @@ export async function RegisterAuth(name: string, email: string, password: string
         // hash seguro da senha
         const hash = await bcrypt.hash(password, 10);
 
-        const user = await prisma.user.create({
+        await prisma.user.create({
             data: {
                 name,
                 email,

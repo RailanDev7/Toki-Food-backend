@@ -1,14 +1,14 @@
-
 import { prisma } from "../../utils/prismaClient.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import "dotenv/config";
 
 
 
 export async function loginService(email: string, password: string) {
     try {
+
+        console.log("JWT_CODE in login:", process.env.JWT_CODE ? "exists" : "NOT FOUND");
 
         const user = await prisma.user.findUnique({
             where: {
@@ -31,7 +31,17 @@ export async function loginService(email: string, password: string) {
             }
 
         }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_CODE!, { expiresIn: '30d' })
+        
+        const secret = process.env.JWT_CODE;
+        if (!secret) {
+            console.error("JWT_CODE not found in login service");
+            return {
+                success: false,
+                message: "Server configuration error"
+            };
+        }
+        
+        const token = jwt.sign({ id: user.id }, secret, { expiresIn: '30d' })
         return {
             success: true,
             token

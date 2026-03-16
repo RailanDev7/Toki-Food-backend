@@ -1,24 +1,47 @@
-import type{ Request, Response } from "express";
+import type { Request, Response } from "express";
 import { addressService } from "../../service/address/addressAdd.service.js";
+import "dotenv/config";
 
+export async function createAddressController(
+ req: Request,
+ res: Response
+){
 
-export async function createAddressController(req: Request, res: Response) {
-  try {
+ try{
 
-    const result = await addressService(req.body);
+    console.log("Request user:", req.user);
 
-    if (result?.error) {
-      return res.status(400).json(result);
+    if(!req.user?.id){
+        return res.status(401).json({
+            error:true,
+            message:"Unauthorized - No user id in token"
+        })
     }
 
-    return res.status(201).json(result);
+    const user_id:number = req.user.id
+    
+    console.log("Creating address for user_id:", user_id);
 
-  } catch (error) {
+    const result = await addressService(
+        req.body,
+        user_id
+    )
+
+    if(result?.error){
+        return res.status(400).json(result)
+    }
+
+    return res.status(201).json(result)
+
+ }catch(error){
+
+    console.error(error)
 
     return res.status(500).json({
-      error: true,
-      message: "Internal server error"
-    });
+        error:true,
+        message:"Internal server error"
+    })
 
-  }
+ }
+
 }
