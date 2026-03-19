@@ -1,12 +1,14 @@
-import { deleteAddress } from "../../service/address/delete.service.js";
-import type { Response, Request } from "express";
+import { editAddressService } from "../../service/address/editAddress.service.js";
+import type { Request, Response } from "express";
 
-export async function deleteController(
+
+
+export async function editAddressController(
     req: Request,
-    res: Response
-) {
+    res: Response) {
     try {
-       
+        const data = req.body;
+
         if (!req.user) {
             return res.status(401).json({
                 success: false,
@@ -21,24 +23,19 @@ export async function deleteController(
         if (!id || isNaN(id)) {
             return res.status(400).json({
                 success: false,
-                error: "ID inválido"
+                error: "Inválid id"
             });
         }
-
-   
-        const result = await deleteAddress(id, user_id);
-
-        
+        const result = await editAddressService(id, user_id, data)
         if (result.success) {
             return res.status(200).json(result);
         } else {
             return res.status(404).json(result);
         }
-
     } catch (error) {
         return res.status(500).json({
             success: false,
             error: "Internal server error"
-        });
+        })
     }
 }

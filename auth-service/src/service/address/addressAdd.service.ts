@@ -7,21 +7,14 @@ export async function addressService(
  user_id:number
 ){
 
- console.log("=== addressService called ===");
- console.log("user_id received:", user_id, "type:", typeof user_id);
-
  if(typeof user_id !== "number" || !user_id){
-    console.error("Invalid user_id - throwing error");
     throw new Error("Unauthorized")
  }
 
  try{
-
-    console.log("Validating address data...");
     const validation = validateAddressData(data);
 
     if(!validation.success){
-        console.log("Validation failed:", validation.error);
         return {
             error:true,
             message:"Invalid address data",
@@ -42,7 +35,6 @@ export async function addressService(
         user_id: user_id
     };
 
-    console.log("Address data to create:", addressData);
 
     // TRANSACTION evita race condition
     return await prisma.$transaction(async (tx)=>{
@@ -81,11 +73,9 @@ export async function addressService(
             };
         }
 
-        console.log("Creating new address...");
         await tx.address.create({
             data:addressData
         });
-        console.log("Address created successfully!");
 
         return {
             success:true,
@@ -95,8 +85,6 @@ export async function addressService(
     });
 
  }catch(error){
-
-    console.error("AddressService error:",error)
 
     throw new Error("Database error");
 

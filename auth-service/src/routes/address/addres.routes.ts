@@ -3,6 +3,7 @@ import { Router } from "express";
 import { authMiddleware } from "../../middleware/jwt/jsonwebtoken.midle.js";
 import { GetAddressContrroller } from "../../controller/addressController/addressGet.controller.js";
 import { deleteController } from "../../controller/addressController/delete.controller.js";
+import { editAddressController } from "../../controller/addressController/editAddress.controller.js";
 
 const addressRouter = Router();
 
@@ -13,7 +14,7 @@ addressRouter.get('/search', authMiddleware, GetAddressContrroller)
 
 addressRouter.delete('/delete/:id', authMiddleware, deleteController)
 
-
+addressRouter.put('/edit/:id', authMiddleware, editAddressController)
 
 export default addressRouter;
 

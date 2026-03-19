@@ -9,8 +9,6 @@ export async function createAddressController(
 
  try{
 
-    console.log("Request user:", req.user);
-
     if(!req.user?.id){
         return res.status(401).json({
             error:true,
@@ -20,7 +18,6 @@ export async function createAddressController(
 
     const user_id:number = req.user.id
     
-    console.log("Creating address for user_id:", user_id);
 
     const result = await addressService(
         req.body,
