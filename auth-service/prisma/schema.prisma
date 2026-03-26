@@ -17,18 +17,16 @@ model User {
   address    Address[]
   email_code Email_code[]
   profile    Profile[]
-  usercpf    UserCPF[]
+  usercpf    UserCPF?
 }
 
 model UserCPF {
   id         Int      @id @default(autoincrement())
-  cpf        String
+  cpf        String   @unique
   data_nasci String
-  user_id    Int
+  user_id    Int      @unique
   createdAt  DateTime @default(now())
   user       User     @relation(fields: [user_id], references: [id])
-
-  @@index([user_id], map: "UserCPF_user_id_fkey")
 }
 
 model Profile {
@@ -36,7 +34,7 @@ model Profile {
   photo     String?
   user_id   Int
   bio       String?
-  genero    Gender?   @default(sem_preferencia)
+  genero    Gender?  @default(sem_preferencia)
   createdAt DateTime @default(now())
   user      User     @relation(fields: [user_id], references: [id])
 

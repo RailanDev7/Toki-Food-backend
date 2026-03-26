@@ -1,4 +1,4 @@
-import { redis } from "../../utils/redis/redisClient.js";
+import { redis } from "../../infra/redis/redisClient.js";
 
 async function testRedis() {
   console.log("Testando Redis...");
